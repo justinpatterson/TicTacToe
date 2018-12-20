@@ -19,7 +19,8 @@ public class TicTacToeBoardController : MonoBehaviour {
     {
         _boardTurnHistory.Clear();
 		width = PlayerPrefs.GetInt("GridSize");
-		height = PlayerPrefs.GetInt("GridSize");
+        height = PlayerPrefs.GetInt("GridSize");
+        winningCount = PlayerPrefs.GetInt("GridSize");
         GenerateBoard(width, height);
 		if(boardViewer) boardViewer.GenerateBoardGridElements( _boardState);
     }
@@ -98,7 +99,7 @@ public class TicTacToeBoardController : MonoBehaviour {
         foreach (Vector2 direction in winningDirections)
         {
             int winCount = 1;
-            for (int i = 1; i < 4; i++)
+            for (int i = 1; i < PlayerPrefs.GetInt("GridSize"); i++)
             {
                 string output = "Checking Space:" + direction + "...";
                 Vector2 targetPosition = new Vector2();
