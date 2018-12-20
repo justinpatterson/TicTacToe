@@ -7,7 +7,8 @@ public class INIT_GamePhaseBehavior : GamePhaseBehavior {
     public override void StartPhase()
     {
         base.StartPhase();
-        
+		PlayerPrefs.SetInt( "GridSize", 3);
+
     }
 
     public override void UpdatePhase()

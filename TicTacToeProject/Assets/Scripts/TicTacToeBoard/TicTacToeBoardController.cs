@@ -18,6 +18,8 @@ public class TicTacToeBoardController : MonoBehaviour {
     public void Init()
     {
         _boardTurnHistory.Clear();
+		width = PlayerPrefs.GetInt("GridSize");
+		height = PlayerPrefs.GetInt("GridSize");
         GenerateBoard(width, height);
 		if(boardViewer) boardViewer.GenerateBoardGridElements( _boardState);
     }
