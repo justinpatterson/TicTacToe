@@ -10,6 +10,10 @@ public class INGAME_GamePhaseBehavior : GamePhaseBehavior
     public override void StartPhase()
     {
         base.StartPhase();
+		if (GameManager.instance)
+		{
+			GameManager.instance.ticTacToeBoardReference.Init();
+		}
     }
     public override void UpdatePhase()
     {

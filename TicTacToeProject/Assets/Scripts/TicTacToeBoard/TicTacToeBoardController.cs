@@ -7,6 +7,7 @@ public class TicTacToeBoardController : MonoBehaviour {
     public int width = 3;
     public Vector2[] winningDirections;
     public int winningCount = 3;
+	public TicTacToeBoard_Viewer boardViewer;
 
     //players can own a board entry, but by default -1 means it's empty
     Dictionary<Vector2, int> _boardState = new Dictionary<Vector2, int>(); 
@@ -18,6 +19,7 @@ public class TicTacToeBoardController : MonoBehaviour {
     {
         _boardTurnHistory.Clear();
         GenerateBoard(width, height);
+		if(boardViewer) boardViewer.GenerateBoardGridElements( _boardState);
     }
 
     void GenerateBoard(int w, int h)
