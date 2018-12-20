@@ -15,6 +15,7 @@ public class END_GamePhaseBehavior : GamePhaseBehavior
             }
 
             GameManager.OnBackClicked += TriggerBackClick;
+            GameManager.OnRestartClicked += TriggerRestartClicked;
         }
         base.StartPhase();
     }
@@ -32,5 +33,10 @@ public class END_GamePhaseBehavior : GamePhaseBehavior
     {
         GameManager.instance.ticTacToeBoardReference.ClearBoard();
         GameManager.instance.TriggerPhaseTransition(GameManager.GamePhases.start);
+    }
+
+    public void TriggerRestartClicked()
+    {
+        GameManager.instance.TriggerPhaseTransition(GameManager.GamePhases.inGame);
     }
 }

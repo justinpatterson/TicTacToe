@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour {
     public delegate void BackClickAction();
     public static event BackClickAction OnBackClicked;
 
+    public delegate void RestartClickAction();
+    public static event RestartClickAction OnRestartClicked;
+
     void Awake()
     {
         if (instance == null)
@@ -95,6 +98,11 @@ public class GameManager : MonoBehaviour {
     {
         if (OnBackClicked != null)
             OnBackClicked();
+    }
+    public void ReportRestartPressed()
+    {
+        if (OnRestartClicked != null)
+            OnRestartClicked();
     }
     #endregion
 }
