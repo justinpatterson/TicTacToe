@@ -29,11 +29,26 @@ public class INGAME_GamePhaseBehavior : GamePhaseBehavior
 
 	public void TriggerTileClick(Vector2 position)
 	{
-		Debug.Log("Position: " + position);
-		if ( GameManager.instance.ticTacToeBoardReference.PlayerClaimsPosition( (int) currentSubPhase , position) )
+		switch(currentSubPhase)
 		{
-			GameManager.instance.ticTacToeBoardReference.boardViewer.PlayerClaimedGridAtPosition( position, (int) currentSubPhase );
+		case InGameSubPhases.player1_turn:Debug.Log("Position: " + position);
+			if ( GameManager.instance.ticTacToeBoardReference.PlayerClaimsPosition( 0, position) )
+			{
+				GameManager.instance.ticTacToeBoardReference.boardViewer.PlayerClaimedGridAtPosition( 0, position );
+			}
+			Debug.Log(GameManager.instance.ticTacToeBoardReference.CheckWinState());
+			currentSubPhase = InGameSubPhases.player2_turn;
+			break;
+		case InGameSubPhases.player2_turn:Debug.Log("Position: " + position);
+			if ( GameManager.instance.ticTacToeBoardReference.PlayerClaimsPosition( 1 , position) )
+			{
+				GameManager.instance.ticTacToeBoardReference.boardViewer.PlayerClaimedGridAtPosition( 1, position );
+			}
+			Debug.Log(GameManager.instance.ticTacToeBoardReference.CheckWinState());
+			currentSubPhase = InGameSubPhases.player1_turn;
+			break;
 		}
+
 
 	}
 }

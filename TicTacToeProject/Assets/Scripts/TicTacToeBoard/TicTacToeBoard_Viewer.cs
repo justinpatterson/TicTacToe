@@ -32,7 +32,7 @@ public class TicTacToeBoard_Viewer : MonoBehaviour {
 			}
 		}
 	}
-	public void PlayerClaimedGridAtPosition( Vector2 inputPosition, int inputPlayerNubmer)
+	public void PlayerClaimedGridAtPosition(int inputPlayerNubmer, Vector2 inputPosition)
 	{
 		if(_boardElements.ContainsKey(inputPosition)) 
 			_boardElements[inputPosition].AssignPlayerSlot(inputPlayerNubmer);
