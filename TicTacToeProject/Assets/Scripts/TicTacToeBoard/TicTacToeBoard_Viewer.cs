@@ -15,10 +15,7 @@ public class TicTacToeBoard_Viewer : MonoBehaviour {
 			_boardContainer.name = "boardContainer";
 		}
 
-		_boardElements.Clear();
-
-		//YUCK fix this
-		foreach( Transform t in _boardContainer.transform ) {Destroy(t.gameObject);}
+        ClearBoardGridElements();
 
 		foreach(Vector2 position in inputBoard.Keys)
 		{
@@ -32,7 +29,16 @@ public class TicTacToeBoard_Viewer : MonoBehaviour {
 			}
 		}
 	}
-	public void PlayerClaimedGridAtPosition(int inputPlayerNubmer, Vector2 inputPosition)
+
+    public void ClearBoardGridElements()
+    {
+        if (!_boardContainer) return;
+
+        _boardElements.Clear();
+        foreach (Transform t in _boardContainer.transform) { Destroy(t.gameObject); }
+    }
+
+    public void PlayerClaimedGridAtPosition(int inputPlayerNubmer, Vector2 inputPosition)
 	{
 		if(_boardElements.ContainsKey(inputPosition)) 
 			_boardElements[inputPosition].AssignPlayerSlot(inputPlayerNubmer);

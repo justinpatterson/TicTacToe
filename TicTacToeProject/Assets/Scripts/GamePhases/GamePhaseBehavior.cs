@@ -7,6 +7,8 @@ public class GamePhaseBehavior : MonoBehaviour {
     public bool phaseActive = false;
     public UIController phaseUI;
 
+    public SharedUISettings sharedUI;
+
     public virtual void StartPhase()
     {
         phaseActive = true;

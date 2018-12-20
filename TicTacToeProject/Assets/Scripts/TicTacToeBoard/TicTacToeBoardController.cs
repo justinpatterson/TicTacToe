@@ -27,7 +27,7 @@ public class TicTacToeBoardController : MonoBehaviour {
 
     void GenerateBoard(int w, int h)
     {
-        _boardState.Clear();
+        ClearBoard();
 
         for (int widthValue = 0; widthValue < w; widthValue++)
         {
@@ -36,6 +36,12 @@ public class TicTacToeBoardController : MonoBehaviour {
                 _boardState.Add(new Vector2(widthValue, heightValue), -1);
             }
         }
+    }
+
+    public void ClearBoard()
+    {
+        _boardState.Clear();
+        boardViewer.ClearBoardGridElements();
     }
 
     public bool PlayerClaimsPosition(int inputPlayerNumber, Vector2 inputTargetPosition)
@@ -133,4 +139,11 @@ public class TicTacToeBoardController : MonoBehaviour {
         return (maxWinCount >= winningCount);
     }
 
+    public int GetCurrentRoundCount()
+    {
+        if (_boardTurnHistory.Count > 0)
+            return _boardTurnHistory.Count / 2;
+        else
+            return 0;
+    }
 }

@@ -11,11 +11,16 @@ public class GameManager : MonoBehaviour {
     public GamePhases currentPhase = GamePhases.init;
     public GamePhaseBehavior[] gamePhaseBehaviors;
     public TicTacToeBoardController ticTacToeBoardReference;
+    public SHARED_UIController sharedUIReference;
 
     GamePhaseBehavior _currentPhaseBehavior;
+    Results _lastResults;
 
 	public delegate void TileClickAction(Vector2 position);
 	public static event TileClickAction OnTileClicked;
+    
+    public delegate void BackClickAction();
+    public static event BackClickAction OnBackClicked;
 
     void Awake()
     {
@@ -56,6 +61,7 @@ public class GameManager : MonoBehaviour {
             {
                 gpb.StartPhase();
                 _currentPhaseBehavior = gpb;
+                if(sharedUIReference) sharedUIReference.SetSharedUIDisplay(_currentPhaseBehavior.sharedUI);
             }
         }
     }
@@ -65,9 +71,30 @@ public class GameManager : MonoBehaviour {
         TriggerPhaseTransition(GamePhases.inGame);
     }
     
-	public void ReportTicTacToeTilePressed(Vector2 position)
-	{
-		if(OnTileClicked != null)
-			OnTileClicked(position); 	
-	}
+
+
+    public void TriggerResultsGeneration(int inputWinningPlayerNumber)
+    {
+        Results r = new Results();
+        r.roundCount = ticTacToeBoardReference.GetCurrentRoundCount();
+        r.winningPlayerNumber = inputWinningPlayerNumber;
+        _lastResults = r;
+    }
+    public Results GetResults()
+    {
+        return _lastResults;
+    }
+
+    #region DELEGATES
+    public void ReportTicTacToeTilePressed(Vector2 position)
+    {
+        if (OnTileClicked != null)
+            OnTileClicked(position);
+    }
+    public void ReportBackPressed()
+    {
+        if (OnBackClicked != null)
+            OnBackClicked();
+    }
+    #endregion
 }
