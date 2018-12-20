@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour {
 
     GamePhaseBehavior _currentPhaseBehavior;
 
+	public delegate void TileClickAction(Vector2 position);
+	public static event TileClickAction OnTileClicked;
+
     void Awake()
     {
         if (instance == null)
@@ -62,4 +65,9 @@ public class GameManager : MonoBehaviour {
         TriggerPhaseTransition(GamePhases.inGame);
     }
     
+	public void ReportTicTacToeTilePressed(Vector2 position)
+	{
+		if(OnTileClicked != null)
+			OnTileClicked(position); 	
+	}
 }

@@ -24,7 +24,7 @@ public class TicTacToeBoard_Element : MonoBehaviour {
 
 	void OnMouseDown()
 	{
-		
+		if(GameManager.instance) GameManager.instance.ReportTicTacToeTilePressed(boardPositionAssignment);
 	}
 	void OnMouseOver()
 	{

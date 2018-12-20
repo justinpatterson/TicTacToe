@@ -13,6 +13,7 @@ public class INGAME_GamePhaseBehavior : GamePhaseBehavior
 		if (GameManager.instance)
 		{
 			GameManager.instance.ticTacToeBoardReference.Init();
+			GameManager.OnTileClicked += TriggerTileClick;
 		}
     }
     public override void UpdatePhase()
@@ -23,5 +24,16 @@ public class INGAME_GamePhaseBehavior : GamePhaseBehavior
     public override void EndPhase()
     {
         base.EndPhase();
+		GameManager.OnTileClicked -= TriggerTileClick;
     }
+
+	public void TriggerTileClick(Vector2 position)
+	{
+		Debug.Log("Position: " + position);
+		if ( GameManager.instance.ticTacToeBoardReference.PlayerClaimsPosition( (int) currentSubPhase , position) )
+		{
+			GameManager.instance.ticTacToeBoardReference.boardViewer.PlayerClaimedGridAtPosition( position, (int) currentSubPhase );
+		}
+
+	}
 }
