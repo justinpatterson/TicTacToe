@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(TicTacToeBoardController))]
+[RequireComponent(typeof(TicTacToeBoard_Controller))]
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance = null;
@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
     public enum GamePhases { init, start, inGame, end, restart }
     public GamePhases currentPhase = GamePhases.init;
     public GamePhaseBehavior[] gamePhaseBehaviors;
-    public TicTacToeBoardController ticTacToeBoardReference;
+    public TicTacToeBoard_Controller ticTacToeBoardReference;
     public SHARED_UIController sharedUIReference;
 
     GamePhaseBehavior _currentPhaseBehavior;
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour {
 
     void Start()
     {
-        if (!ticTacToeBoardReference) ticTacToeBoardReference = GetComponent<TicTacToeBoardController>();
+        if (!ticTacToeBoardReference) ticTacToeBoardReference = GetComponent<TicTacToeBoard_Controller>();
         TriggerPhaseTransition(GamePhases.init);
         TriggerPhaseTransition(GamePhases.start);
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TicTacToeBoardController : MonoBehaviour {
+public class TicTacToeBoard_Controller : MonoBehaviour {
     public int height = 3;
     public int width = 3;
     public Vector2[] winningDirections;
