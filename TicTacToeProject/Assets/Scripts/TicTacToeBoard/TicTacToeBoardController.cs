@@ -82,6 +82,7 @@ public class TicTacToeBoardController : MonoBehaviour {
     bool CheckWinState_AllPositions()
     {
         bool win = false;
+		/* this is the most immediate way to check win state, but technically only first column and row should be needed with tictactoe rules
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -96,11 +97,33 @@ public class TicTacToeBoardController : MonoBehaviour {
                 }
             }
         }
+        */
+		for (int x = 0; x < width; x++)
+		{
+			Vector2 checkposition = new Vector2(x, 0);
+			if (_boardState.ContainsKey(checkposition))
+			{
+				if (_boardState[checkposition] == _lastPlayerNumber)
+				{
+					if (win == false) win = CheckWinState_AtPosition(checkposition, _lastPlayerNumber);
+				}
+			}
+		}
+		for (int y = 0; y < height; y++)
+		{
+			Vector2 checkposition = new Vector2(0, y);
+			if (_boardState.ContainsKey(checkposition))
+			{
+				if (_boardState[checkposition] == _lastPlayerNumber)
+				{
+					if (win == false) win = CheckWinState_AtPosition(checkposition, _lastPlayerNumber);
+				}
+			}
+		}
         return win;
     }
     bool CheckWinState_AtPosition(Vector2 inputPosition, int inputPlayerNumber)
     {
-//        Debug.Log(inputPosition);
         int maxWinCount = 0;
         foreach (Vector2 direction in winningDirections)
         {
@@ -132,7 +155,6 @@ public class TicTacToeBoardController : MonoBehaviour {
 
                 }
             }
-            //Debug.Log("Score for Direction " + direction.ToString() + " is " + winCount);
         }
         Debug.Log("winCount for " + inputPlayerNumber + " is " + maxWinCount);
 
