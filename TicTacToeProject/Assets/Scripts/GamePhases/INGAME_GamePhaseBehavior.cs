@@ -15,14 +15,14 @@ public class INGAME_GamePhaseBehavior : GamePhaseBehavior
 		{
             Camera.main.transform.position = new Vector3
                 (
-                ((float)GameManager.instance.ticTacToeBoardReference.width) / 2f,
-                 ((float)GameManager.instance.ticTacToeBoardReference.width) / 2f,
+					((float)GameManager.instance.ticTacToeBoardReference.width * GameManager.instance.ticTacToeBoardReference.boardViewer.spriteSize) / 2f,
+					((float)GameManager.instance.ticTacToeBoardReference.width * GameManager.instance.ticTacToeBoardReference.boardViewer.spriteSize) / 2f,
                 Camera.main.transform.position.z
                 );
 			GameManager.instance.ticTacToeBoardReference.Init();
 			GameManager.OnTileClicked += TriggerTileClick;
-
             GameManager.OnBackClicked += TriggerBackClick;
+			ReportCurrentPlayerTurn(0);
 		}
     }
     public override void UpdatePhase()
@@ -52,6 +52,7 @@ public class INGAME_GamePhaseBehavior : GamePhaseBehavior
                     GameManager.instance.TriggerPhaseTransition(GameManager.GamePhases.end);
                 }
                 currentSubPhase = InGameSubPhases.player2_turn;
+				ReportCurrentPlayerTurn(1);
             }
                 
 			break;
@@ -65,11 +66,21 @@ public class INGAME_GamePhaseBehavior : GamePhaseBehavior
                     GameManager.instance.TriggerResultsGeneration(1);
                     GameManager.instance.TriggerPhaseTransition(GameManager.GamePhases.end);
                 }
-                currentSubPhase = InGameSubPhases.player1_turn;
+				currentSubPhase = InGameSubPhases.player1_turn;
+				ReportCurrentPlayerTurn(0);
             }
             break;
 		}
 	}
+	void ReportCurrentPlayerTurn(int inputPlayerNumber)
+	{
+		if(phaseUI is INGAME_UIController)
+		{
+			INGAME_UIController phaseUI_cast = (INGAME_UIController) phaseUI;
+			phaseUI_cast.TriggerPlayerNumberImageUpdate(inputPlayerNumber);
+		}
+	}
+
     public void TriggerBackClick()
     {
         GameManager.instance.ticTacToeBoardReference.ClearBoard();

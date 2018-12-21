@@ -6,6 +6,9 @@ public class TicTacToeBoard_Viewer : MonoBehaviour {
 	GameObject _boardContainer;
 	public GameObject gridElementPrefab;
 	Dictionary <Vector2, TicTacToeBoard_Element> _boardElements = new Dictionary<Vector2, TicTacToeBoard_Element>();
+	public float spriteSize = 1.2f;
+
+	public Sprite[] playerSprites;
 
 	public void GenerateBoardGridElements(Dictionary<Vector2, int> inputBoard)
 	{
@@ -19,7 +22,7 @@ public class TicTacToeBoard_Viewer : MonoBehaviour {
 
 		foreach(Vector2 position in inputBoard.Keys)
 		{
-			GameObject newGridElement = Instantiate( gridElementPrefab, position, Quaternion.identity );
+			GameObject newGridElement = Instantiate( gridElementPrefab, position*spriteSize, Quaternion.identity );
 			newGridElement.transform.SetParent(_boardContainer.transform);
 			if(newGridElement.GetComponent<TicTacToeBoard_Element>())
 			{
