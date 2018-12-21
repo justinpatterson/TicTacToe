@@ -22,6 +22,7 @@ public class INGAME_GamePhaseBehavior : GamePhaseBehavior
 			GameManager.instance.ticTacToeBoardReference.Init();
 			GameManager.OnTileClicked += TriggerTileClick;
             GameManager.OnBackClicked += TriggerBackClick;
+			currentSubPhase = InGameSubPhases.player1_turn;
 			ReportCurrentPlayerTurn(0);
 		}
     }
@@ -42,7 +43,7 @@ public class INGAME_GamePhaseBehavior : GamePhaseBehavior
 		switch(currentSubPhase)
 		{
 		case InGameSubPhases.player1_turn:
-            Debug.Log("Position: " + position);
+//            Debug.Log("Position: " + position);
 			if ( GameManager.instance.ticTacToeBoardReference.PlayerClaimsPosition( 0, position) )
 			{
 				GameManager.instance.ticTacToeBoardReference.boardViewer.PlayerClaimedGridAtPosition( 0, position );
@@ -50,9 +51,16 @@ public class INGAME_GamePhaseBehavior : GamePhaseBehavior
                 {
                     GameManager.instance.TriggerResultsGeneration(0);
                     GameManager.instance.TriggerPhaseTransition(GameManager.GamePhases.end);
-                }
-                currentSubPhase = InGameSubPhases.player2_turn;
+				}
+				else if(GameManager.instance.ticTacToeBoardReference.GetCurrentTurnCount() >= (Mathf.Pow(GameManager.instance.ticTacToeBoardReference.width,2)))
+				{
+
+					GameManager.instance.TriggerResultsGeneration(-1);
+					GameManager.instance.TriggerPhaseTransition(GameManager.GamePhases.end);
+				}
+				currentSubPhase = InGameSubPhases.player2_turn;
 				ReportCurrentPlayerTurn(1);
+
             }
                 
 			break;
@@ -66,8 +74,14 @@ public class INGAME_GamePhaseBehavior : GamePhaseBehavior
                     GameManager.instance.TriggerResultsGeneration(1);
                     GameManager.instance.TriggerPhaseTransition(GameManager.GamePhases.end);
                 }
+				else if(GameManager.instance.ticTacToeBoardReference.GetCurrentTurnCount() >= (Mathf.Pow(GameManager.instance.ticTacToeBoardReference.width,2)))
+				{
+					GameManager.instance.TriggerResultsGeneration(-1);
+					GameManager.instance.TriggerPhaseTransition(GameManager.GamePhases.end);
+				}
 				currentSubPhase = InGameSubPhases.player1_turn;
 				ReportCurrentPlayerTurn(0);
+
             }
             break;
 		}

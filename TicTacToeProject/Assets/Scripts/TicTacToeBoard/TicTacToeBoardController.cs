@@ -52,7 +52,7 @@ public class TicTacToeBoardController : MonoBehaviour {
             {
                 _lastPlayerNumber = inputPlayerNumber;
                 _lastPlayerPosition = inputTargetPosition;
-                _boardTurnHistory.Add(inputTargetPosition);
+				if(inputPlayerNumber != -1) _boardTurnHistory.Add(inputTargetPosition);
                 _boardState[inputTargetPosition] = inputPlayerNumber;
                 return true;
             }
@@ -100,7 +100,7 @@ public class TicTacToeBoardController : MonoBehaviour {
     }
     bool CheckWinState_AtPosition(Vector2 inputPosition, int inputPlayerNumber)
     {
-        Debug.Log(inputPosition);
+//        Debug.Log(inputPosition);
         int maxWinCount = 0;
         foreach (Vector2 direction in winningDirections)
         {
@@ -132,7 +132,7 @@ public class TicTacToeBoardController : MonoBehaviour {
 
                 }
             }
-            Debug.Log("Score for Direction " + direction.ToString() + " is " + winCount);
+            //Debug.Log("Score for Direction " + direction.ToString() + " is " + winCount);
         }
         Debug.Log("winCount for " + inputPlayerNumber + " is " + maxWinCount);
 
@@ -145,5 +145,9 @@ public class TicTacToeBoardController : MonoBehaviour {
             return _boardTurnHistory.Count / 2;
         else
             return 0;
-    }
+	}
+	public int GetCurrentTurnCount()
+	{
+		return _boardTurnHistory.Count;
+	}
 }
