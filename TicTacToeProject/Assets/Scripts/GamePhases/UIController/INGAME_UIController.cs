@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class INGAME_UIController : UIController 
 {
 	public Image currentPlayerNumberImage;
+
 	public void TriggerPlayerNumberImageUpdate(int inputPlayerNumber)
 	{
 		if(GameManager.instance)
