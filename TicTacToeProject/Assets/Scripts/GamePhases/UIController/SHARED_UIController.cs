@@ -9,6 +9,7 @@ public class SHARED_UIController : UIController {
 
     public void SetSharedUIDisplay (SharedUISettings inputSharedSettings)
     {
+		if(!uiActive) OpenUI();
         topBannerContainer.SetActive(inputSharedSettings.showTopBannerBG);
         backButton.gameObject.SetActive(inputSharedSettings.backButton);
     }

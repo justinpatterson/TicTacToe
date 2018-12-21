@@ -15,8 +15,8 @@ public class INGAME_GamePhaseBehavior : GamePhaseBehavior
 		{
             Camera.main.transform.position = new Vector3
                 (
-					((float)GameManager.instance.ticTacToeBoardReference.width * GameManager.instance.ticTacToeBoardReference.boardViewer.spriteSize) / 2f,
-					((float)GameManager.instance.ticTacToeBoardReference.width * GameManager.instance.ticTacToeBoardReference.boardViewer.spriteSize) / 2f,
+					(GameManager.instance.ticTacToeBoardReference.width * GameManager.instance.ticTacToeBoardReference.boardViewer.spriteSize) / 2,
+					(GameManager.instance.ticTacToeBoardReference.width * GameManager.instance.ticTacToeBoardReference.boardViewer.spriteSize) / 2,
                 Camera.main.transform.position.z
                 );
 			GameManager.instance.ticTacToeBoardReference.Init();

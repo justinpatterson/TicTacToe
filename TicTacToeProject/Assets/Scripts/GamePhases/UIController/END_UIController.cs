@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class END_UIController : UIController {
-    public Text popUpBody;
-    public void ReportResults(Results inputResults)
+    
+	//public Image popUpBody_playerIMG;
+	public Image[] popUp_playerIMGs;
+    
+	public void ReportResults(Results inputResults)
     {
-        popUpBody.text =
-            "Player " + inputResults.winningPlayerNumber + " Wins!";
+		Sprite winningPlayerSprite = GameManager.instance.ticTacToeBoardReference.boardViewer.playerSprites[ inputResults.winningPlayerNumber ];
+		foreach(Image playerIMG in popUp_playerIMGs) playerIMG.sprite = winningPlayerSprite;
     }
 
 }
